@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: management
+  data:
+      redis:
+        host: 192.168.100.128
+        port: 6379
+        password: 123
+
+        lettuce:
+          pool:
+            max-active: 8
+            max-idle: 8
+            min-idle: 0
+
+            max-wait: 100ms
+  datasource:
+    url: jdbc:mysql://localhost:3306/taotao
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  address: 0.0.0.0
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+logging:
+  level:
+    root: INFO
+    com.taotaoapi: DEBUG
+application:
+  security:
+    jwt:
+      secret-key: vrvQ+YWFe4bjOAqIqso7aMrMz9yqeiV6grsz0TDfhawdVNRYdKGQQ7zcTQEHfCkC6DsT5htL4vc4KBsL44VObQ==
+      expiration: 86400000 # 1 day
+      refresh-token:
+        expiration: 604800000 # 7 days
+      reset:
+        expiration: 90000 # 15 ms
+
+mybatis:
+  mapper-locations: classpath*:com/taotaoapi/mapper/*.xml
+  type-aliases-package: com.taotaoapi.user
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true

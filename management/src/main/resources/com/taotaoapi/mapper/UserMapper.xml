@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taotaoapi.mapper.UserMapper">
+    <!-- INSERT -->
+    <insert id="insertUser" parameterType="com.taotaoapi.user.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO _user (firstname,lastname,email,password,phone,role)
+        VALUES (#{firstname},#{lastname},#{email},#{password},#{phone},#{role})
+    </insert>
+    <!-- SELECT -->
+    <select id="findByEmail" resultType="com.taotaoapi.user.User">
+        SELECT id,firstname,lastname,email,password,phone,role
+        FROM _user
+        WHERE email = #{email}
+    </select>
+</mapper>
