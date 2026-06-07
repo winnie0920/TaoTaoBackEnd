@@ -2,6 +2,7 @@ package com.taotaoapi.response;
 
 import lombok.Data;
 
+
 @Data
 public class ApiResponse<T> {
     private String code;

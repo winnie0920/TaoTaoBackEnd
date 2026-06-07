@@ -34,10 +34,10 @@ public class LogoutService implements LogoutHandler {
     String email = jwtService.extractUsername(jwt);
 
     if (email == null) {
-      SecurityContextHolder.clearContext();
       return;
     }
     User user = userMapper.findByEmail(email);
+
     if (user != null) {
       redisTokenService.revokeUser(user.getId());
     }

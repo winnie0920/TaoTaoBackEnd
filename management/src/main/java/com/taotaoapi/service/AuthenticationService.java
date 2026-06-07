@@ -99,21 +99,10 @@ public class AuthenticationService {
   /**
    * Refresh Token 換取新的 Access Token
    */
-  public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-    String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-
-    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-      throw new BusinessException(400, "Refresh Token 不存在");
-    }
-
-    String refreshToken = authHeader.substring(7);
-
+  public AuthenticationResponse refreshToken(String refreshToken) {
     String email = jwtService.extractUsername(refreshToken);
-
     User user = userMapper.findByEmail(email);
 
-    // Redis 驗證 refresh token
     String storedRefresh = redisTokenService.getRefreshToken(user.getId());
 
     if (storedRefresh == null || !storedRefresh.equals(refreshToken)) {
@@ -125,15 +114,11 @@ public class AuthenticationService {
     }
 
     String newAccessToken = jwtService.generateToken(user);
-
-    // 只更新 access token
     redisTokenService.saveAccessToken(user.getId(), newAccessToken, 15 * 60);
 
-    AuthenticationResponse responseBody = AuthenticationResponse.builder()
+    return AuthenticationResponse.builder()
             .accessToken(newAccessToken)
             .refreshToken(refreshToken)
             .build();
-
-    new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
   }
 }

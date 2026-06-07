@@ -1,6 +1,8 @@
 package com.taotaoapi.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.taotaoapi.mapper.UserMapper;
+import com.taotaoapi.response.ApiResponse;
 import com.taotaoapi.service.JwtService;
 import com.taotaoapi.service.RedisTokenService;
 import com.taotaoapi.user.User;
@@ -10,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +22,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -98,16 +103,32 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
       // Redis 驗證
       String redisAccessToken = redisTokenService.getAccessToken(userId);
+      System.out.println("jwtValid = " + jwtValid);
       boolean redisValid = jwt.equals(redisAccessToken);
+      System.out.println("redisValid = " + redisValid);
 
+
+      // token 無效 → 9004
+      if (!jwtValid || !redisValid) {
+        ApiResponse<Object> res = new ApiResponse<>();
+        res.setCode("9004");
+        res.setMsg("Token 已過期或失效");
+        res.setData(null);
+
+        response.setStatus(200);
+        response.setContentType("application/json;charset=UTF-8");
+
+        response.getWriter().write(
+                new ObjectMapper().writeValueAsString(res)
+        );
+        return;
+      }
       /**
        * 最終驗證：
        * - JWT 簽章正確
        * - JWT 沒過期
        * - DB token 沒被撤銷
        */
-      if (jwtValid && redisValid) {
-
         /**
          * 建立「登入身份物件」，代表：這個 request 已經是登入狀態
          */
@@ -128,11 +149,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
          */
         SecurityContextHolder.getContext().setAuthentication(authToken);
       }
-    }
-
     /**
      * 放行 request，繼續往 Controller 走
      */
     filterChain.doFilter(request, response);
   }
 }
+

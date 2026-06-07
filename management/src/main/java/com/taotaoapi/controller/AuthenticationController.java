@@ -8,10 +8,7 @@ import com.taotaoapi.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -45,8 +42,9 @@ public class AuthenticationController {
    * 更新 Access Token
    */
   @PostMapping("/refresh-token")
-  public void refreshToken(HttpServletRequest request, HttpServletResponse response
-  ) throws IOException {
-    service.refreshToken(request, response);
+  public ApiResponse<AuthenticationResponse> refreshToken(
+          @RequestHeader("Authorization") String authHeader) {
+    String token = authHeader.substring(7);
+    return ApiResponse.success("刷新成功", service.refreshToken(token));
   }
 }
