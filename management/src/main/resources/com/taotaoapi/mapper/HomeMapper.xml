@@ -3,12 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.taotaoapi.mapper.HomeMapper">
-    <select id="selectAll" resultType="com.taotaoapi.home.Country">
+    <select id="selectAllCountry" resultType="com.taotaoapi.home.CountryResponse">
         SELECT
             id,
-            country_key,
+            country_key AS `key`,
             name,
             icon
         FROM _countries
     </select>
+
+    <select id="selectAllCategory"
+            resultType="com.taotaoapi.home.CategoryResponse">
+        SELECT
+            id,
+            categories_key AS `key`,
+            name,
+            icon
+        FROM _categories
+    </select>
+
 </mapper>

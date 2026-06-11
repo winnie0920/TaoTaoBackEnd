@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Country {
+public class CountryRequest {
     private Integer id;
     private String countryKey;
     private String name;

@@ -5,20 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="045b65af-9f11-4709-9969-31f04eeb4e3e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/HomeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/mapper/HomeMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/HomeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management/src/main/resources/com/taotaoapi/mapper/HomeMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/Country.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/CountryResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/GrepConsole.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/upload/CloudflareR2Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/upload/CloudflareR2Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/upload/FileNameUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/UploadController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/UploadService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/cloudflare/CloudflareProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/ArticleRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/CategoryResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/f10560d5-632a-407d-aacb-074414cd974d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f10560d5-632a-407d-aacb-074414cd974d.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/AuthenticationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/LogoutService.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/LogoutService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/response/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/response/ApiResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/management/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/mapper/HomeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/mapper/HomeMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/HomeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/HomeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/resources/com/taotaoapi/mapper/HomeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/resources/com/taotaoapi/mapper/HomeMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/Country.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/CountryRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/CountryResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/CountryResponse.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,11 +74,12 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.ManagementApplication.executor": "Debug",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "jdk-21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/USER/Desktop/code/TaoTaoApi/management/src/main/resources/com/taotaoapi/mapper",
+    "last_opened_file_path": "C:/Users/USER/Desktop/code/TaoTaoApi/management/src/main/java/com/taotaoapi/config",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -95,11 +102,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\Desktop\code\TaoTaoApi\management\src\main\java\com\taotaoapi\config" />
       <recent name="C:\Users\USER\Desktop\code\TaoTaoApi\management\src\main\resources\com\taotaoapi\mapper" />
       <recent name="C:\Users\USER\Desktop\code\TaoTaoApi\pojo\src\main\java\com\taotaoapi" />
       <recent name="C:\Users\USER\Desktop\code\TaoTaoApi\pojo" />
       <recent name="C:\Users\USER\Desktop\code\TaoTaoApi\pojo\src\main" />
-      <recent name="C:\Users\USER\Desktop\code\TaoTaoApi\parent\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\USER\Desktop\code\TaoTaoApi\management\src\main\resources\com\taotaoapi\mapper" />
@@ -111,6 +118,12 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.taotaoapi.mapper" />
       <recent name="com.taotaoapi" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.taotaoapi.config.upload" />
+      <recent name="com.taotaoapi.cloudflare" />
+      <recent name="com.taotaoapi.service" />
+      <recent name="com.taotaoapi.controller" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.ManagementApplication">
@@ -150,7 +163,10 @@
       <workItem from="1780471885698" duration="5939000" />
       <workItem from="1780545197769" duration="12892000" />
       <workItem from="1780631112841" duration="8663000" />
-      <workItem from="1780804931723" duration="9259000" />
+      <workItem from="1780804931723" duration="9618000" />
+      <workItem from="1780977039864" duration="2718000" />
+      <workItem from="1781063609856" duration="4544000" />
+      <workItem from="1781149599151" duration="8799000" />
     </task>
     <servers />
   </component>

@@ -20,6 +20,17 @@
     </properties>
 
     <dependencies>
+        <!-- AWS S3 -->
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>apache-client</artifactId>
+        </dependency>
+
         <!--Spring Security-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
