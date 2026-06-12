@@ -5,26 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="045b65af-9f11-4709-9969-31f04eeb4e3e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/GrepConsole.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/upload/CloudflareR2Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/upload/CloudflareR2Config.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/upload/FileNameUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/UploadController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/UploadService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/cloudflare/CloudflareProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/ArticleRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/CategoryResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/Article.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/Image.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/TagsResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/f10560d5-632a-407d-aacb-074414cd974d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f10560d5-632a-407d-aacb-074414cd974d.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/management/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/HomeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/mapper/HomeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/mapper/HomeMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/HomeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/HomeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/management/src/main/resources/com/taotaoapi/mapper/HomeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/resources/com/taotaoapi/mapper/HomeMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/Country.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/CountryRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/CountryResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/CountryResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/ArticleRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/ArticleRequest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,38 +56,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.ManagementApplication.executor": "Debug",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "jdk-21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/USER/Desktop/code/TaoTaoApi/management/src/main/java/com/taotaoapi/config",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15429688",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ManagementApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;jdk-21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/Desktop/code/TaoTaoApi/management/src/main/java/com/taotaoapi/config&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15429688&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql_aurora_aws"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql_aurora_aws&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -116,6 +107,7 @@
       <recent name="C:\Users\USER\Desktop\code\TaoTaoApi" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.taotaoapi.home" />
       <recent name="com.taotaoapi.mapper" />
       <recent name="com.taotaoapi" />
     </key>
@@ -166,7 +158,8 @@
       <workItem from="1780804931723" duration="9618000" />
       <workItem from="1780977039864" duration="2718000" />
       <workItem from="1781063609856" duration="4544000" />
-      <workItem from="1781149599151" duration="8799000" />
+      <workItem from="1781149599151" duration="8924000" />
+      <workItem from="1781236324296" duration="6483000" />
     </task>
     <servers />
   </component>

@@ -4,22 +4,43 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.taotaoapi.mapper.HomeMapper">
     <select id="selectAllCountry" resultType="com.taotaoapi.home.CountryResponse">
-        SELECT
-            id,
-            country_key AS `key`,
-            name,
-            icon
+        SELECT id,country_key AS `key`,name,icon
         FROM _countries
     </select>
 
     <select id="selectAllCategory"
             resultType="com.taotaoapi.home.CategoryResponse">
-        SELECT
-            id,
-            categories_key AS `key`,
-            name,
-            icon
+        SELECT id,categories_key AS `key`,name,icon
         FROM _categories
     </select>
 
+    <select id="selectAllTags"
+            resultType="com.taotaoapi.home.TagsResponse">
+        SELECT id,tag_key AS `key`,name,icon
+        FROM _tags
+    </select>
+
+
+    <insert id="insertArticle"
+            parameterType="com.taotaoapi.home.Article"
+            useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO _articles(user_id,country_id,category_id,title,content)
+        VALUES(#{userId},#{countryId},#{categoryId}, #{title}, #{content} )
+
+    </insert>
+
+    <insert id="insertArticleTag">
+        INSERT INTO _article_tags(article_id,tag_id)
+        VALUES(#{articleId},#{tagId})
+
+    </insert>
+
+    <insert id="insertArticleImage"
+            parameterType="com.taotaoapi.home.Image">
+
+        INSERT INTO _article_images(article_id,image_url,sort_order,is_cover)
+        VALUES(#{articleId},#{imageUrl},#{sortOrder}, #{isCover})
+
+    </insert>
 </mapper>

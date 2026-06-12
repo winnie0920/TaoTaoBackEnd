@@ -1,12 +1,12 @@
 package com.taotaoapi.service;
 
-import com.taotaoapi.home.ArticleRequest;
-import com.taotaoapi.home.CategoryResponse;
-import com.taotaoapi.home.CountryResponse;
+import com.taotaoapi.exception.BusinessException;
+import com.taotaoapi.home.*;
 import com.taotaoapi.mapper.HomeMapper;
+import com.taotaoapi.mapper.UserMapper;
+import com.taotaoapi.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +19,7 @@ import java.util.List;
 public class HomeService {
 
     private final HomeMapper homeMapper;
+    private final UserMapper userMapper;
 
     public List<CountryResponse> getCountries() {
         return homeMapper.selectAllCountry();
@@ -28,48 +29,47 @@ public class HomeService {
         return homeMapper.selectAllCategory();
     }
 
-    @Transactional
-    public void postArticle(ArticleRequest req) {
+    public List<TagsResponse> getTags(){
+        return homeMapper.selectAllTags();
+    }
 
-        // 1️⃣ 存 article
-        ArticleRequest article = new ArticleRequest();
-        article.setUserId(req.getUserId());
-        article.setCountryId((req.getCountryId()));
+    @Transactional(rollbackFor = Exception.class)
+    public void postArticle(ArticleRequest req, String userEmail) {
+
+        User user = userMapper.findByEmail(userEmail);
+        if (user == null) {
+            throw new BusinessException(400, "使用者不存在，無法發布貼文");
+        }
+
+        // 存 article
+        Article article = new Article();
+        article.setUserId(Long.valueOf(user.getId()));
+        article.setCountryId(req.getCountryId());
         article.setCategoryId(req.getCategoryId());
         article.setTitle(req.getTitle());
         article.setContent(req.getContent());
-
-        article = articleRepository.save(article);
-
+        homeMapper.insertArticle(article);
         Long articleId = article.getId();
 
-        // 2️⃣ 存 tags (N:M)
+
+        // 存 tags
         if (req.getTags() != null) {
             for (Long tagId : req.getTags()) {
-                ArticleTag at = new ArticleTag();
-                at.setArticleId(articleId);
-                at.setTagId(tagId);
-                articleTagRepository.save(at);
+                homeMapper.insertArticleTag(articleId, tagId);
             }
         }
 
-        // 3️⃣ 存 images (1:N)
-        if (req.getImageUrls() != null) {
+        // 3. 存 images
+        if (req.getImageUrls() != null && !req.getImageUrls().isEmpty()) {
 
-            int i = 0;
+            for (int i = 0; i < req.getImageUrls().size(); i++) {
+                Image image = new Image();
+                image.setArticleId(articleId);
+                image.setImageUrl(req.getImageUrls().get(i));
+                image.setSortOrder(i);
+                image.setIsCover(i == 0);
 
-            for (String url : req.getImageUrls()) {
-
-                ArticleImage img = new ArticleImage();
-                img.setArticleId(articleId);
-                img.setImageUrl(url);
-                img.setSortOrder(i);
-                img.setIsCover(i == 0);
-                img.setCreatedTime(LocalDateTime.now());
-
-                articleImageRepository.save(img);
-
-                i++;
+                homeMapper.insertArticleImage(image);
             }
         }
     }
