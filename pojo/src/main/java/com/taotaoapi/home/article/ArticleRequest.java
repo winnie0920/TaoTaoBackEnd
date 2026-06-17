@@ -1,4 +1,4 @@
-package com.taotaoapi.home;
+package com.taotaoapi.home.article;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+// 新增文章格式
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

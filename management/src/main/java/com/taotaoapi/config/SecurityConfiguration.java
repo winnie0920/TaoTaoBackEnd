@@ -135,8 +135,11 @@ public class SecurityConfiguration {
 
         config.setAllowedOriginPatterns(List.of(
                 "http://localhost:5173",
-                "https://winnie0920.github.io"
+                "https://winnie0920.github.io",
+                "http://100.118.4.50:*",                 // 允許你的 Tailscale 內網 IP 的任何 Port
+                "https://weiwei-pc.tailb205c1.ts.net"    // 如果之後要用 Funnel 也可以直接通
         ));
+
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

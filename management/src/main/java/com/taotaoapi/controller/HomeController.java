@@ -1,14 +1,18 @@
 package com.taotaoapi.controller;
 
 
-import com.taotaoapi.home.ArticleRequest;
-import com.taotaoapi.home.CategoryResponse;
-import com.taotaoapi.home.CountryResponse;
-import com.taotaoapi.home.TagsResponse;
+import com.taotaoapi.home.*;
+import com.taotaoapi.home.article.ArticleList;
+import com.taotaoapi.home.article.ArticleQuery;
+import com.taotaoapi.home.article.ArticleRequest;
+import com.taotaoapi.home.article.Page;
+import com.taotaoapi.home.country.CountryResponse;
 import com.taotaoapi.response.ApiResponse;
 import com.taotaoapi.service.HomeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -47,9 +51,5 @@ public class HomeController {
         );
     }
 
-    @PostMapping("/article")
-    public ApiResponse createArticle(@RequestBody ArticleRequest req, @AuthenticationPrincipal UserDetails userDetails) {
-        homeService.postArticle(req,userDetails.getUsername());
-        return ApiResponse.success("新增成功",null);
-    }
+
 }

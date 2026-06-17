@@ -2,25 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.taotaoapi.mapper.HomeMapper">
-    <select id="selectAllCountry" resultType="com.taotaoapi.home.country.CountryResponse">
-        SELECT id,country_key AS `key`,name,icon
-        FROM _countries
-    </select>
-
-    <select id="selectAllCategory"
-            resultType="com.taotaoapi.home.CategoryResponse">
-        SELECT id,categories_key AS `key`,name,icon
-        FROM _categories
-    </select>
-
-    <select id="selectAllTags"
-            resultType="com.taotaoapi.home.TagsResponse">
-        SELECT id,tag_key AS `key`,name,icon
-        FROM _tags
-    </select>
-
-
+<mapper namespace="com.taotaoapi.mapper.ArticleMapper">
     <insert id="insertArticle"
             parameterType="com.taotaoapi.home.article.Article"
             useGeneratedKeys="true"
@@ -43,17 +25,74 @@
         VALUES(#{articleId},#{imageUrl},#{sortOrder}, #{isCover})
 
     </insert>
-    <select id="selectArticleList"
-            resultType="com.taotaoapi.home.article.ArticleList">
 
+    <resultMap id="ArticleList" type="com.taotaoapi.home.article.ArticleList">
+        <id property="id" column="id"/>
+
+        <result property="userId" column="userId"/>
+        <result property="userName" column="userName"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="likeCount" column="likeCount"/>
+        <result property="commentCount" column="commentCount"/>
+        <result property="favoriteCount" column="favoriteCount"/>
+        <result property="liked" column="liked"/>
+        <result property="favorited" column="favorited"/>
+        <result property="createdTime" column="createdTime"/>
+
+        <result property="countryId" column="countryId"/>
+        <result property="countryName" column="countryName"/>
+        <result property="countryIcon" column="countryIcon"/>
+        <result property="categoryId" column="categoryId"/>
+        <result property="categoryName" column="categoryName"/>
+        <result property="categoryIcon" column="categoryIcon"/>
+
+        <collection property="images"
+                    column="id"
+                    ofType="com.taotaoapi.home.article.ArticleImage"
+                    select="selectImagesByArticleId"/>
+
+        <collection property="tags"
+                    column="id"
+                    ofType="com.taotaoapi.home.article.ArticleTag"
+                    select="selectTagsByArticleId"/>
+    </resultMap>
+
+    <select id="selectImagesByArticleId" resultType="com.taotaoapi.home.article.ArticleImage">
+        SELECT
+            id,
+            article_id AS articleId,
+            image_url AS imageUrl,
+            sort_order AS sortOrder,
+            is_cover AS isCover
+        FROM _article_images
+        WHERE article_id = #{id}
+        ORDER BY is_cover DESC, sort_order ASC, id ASC
+    </select>
+
+    <select id="selectTagsByArticleId" resultType="com.taotaoapi.home.article.ArticleTag">
+        SELECT
+            t.id,
+            t.name
+        FROM _article_tags at
+                 JOIN _tags t ON t.id = at.tag_id
+        WHERE at.article_id = #{id}
+    </select>
+
+    <select id="selectArticleList" resultMap="ArticleList">
         SELECT
         a.id,
         a.user_id AS userId,
-        u.email AS username,
+        u.email AS userName,
         a.title,
         a.content,
 
-        img.image_url AS coverImage,
+        a.country_id AS countryId,
+        cou.name AS countryName,
+        cou.icon AS countryIcon,
+        a.category_id AS categoryId,
+        cat.name AS categoryName,
+        cat.icon AS categoryIcon,
 
         COALESCE(l.like_count, 0) AS likeCount,
         COALESCE(c.comment_count, 0) AS commentCount,
@@ -67,10 +106,8 @@
         FROM _articles a
 
         JOIN _user u ON u.id = a.user_id
-
-        LEFT JOIN _article_images img
-        ON img.article_id = a.id
-        AND img.is_cover = TRUE
+        LEFT JOIN _categories cat ON cat.id = a.category_id
+        LEFT JOIN _countries cou ON cou.id = a.country_id
 
         LEFT JOIN (
         SELECT article_id, COUNT(*) AS like_count
@@ -105,11 +142,9 @@
                 OR a.content LIKE CONCAT('%', #{query.keyword}, '%')
                 )
             </if>
-
             <if test="query.categoryId != null">
                 AND a.category_id = #{query.categoryId}
             </if>
-
             <if test="query.countryId != null">
                 AND a.country_id = #{query.countryId}
             </if>
@@ -117,11 +152,11 @@
                 AND a.id &lt; #{query.lastId}
             </if>
         </where>
-
         ORDER BY a.id DESC
         LIMIT #{query.size}
-
     </select>
+
+
     <select id="countArticles" resultType="java.lang.Long">
 
         SELECT COUNT(*)
@@ -140,5 +175,23 @@
                 AND a.country_id = #{countryId}
             </if>
         </where>
+    </select>
+
+    <!-- 新增點讚 -->
+    <insert id="insertLike">
+        INSERT INTO _article_likes (user_id, article_id, created_time)
+        VALUES (#{userId}, #{articleId}, NOW())
+    </insert>
+
+    <!-- 取消點讚 -->
+    <delete id="deleteLike">
+        DELETE FROM _article_likes
+        WHERE user_id = #{userId} AND article_id = #{articleId}
+    </delete>
+
+    <!-- 檢查是否點讚 -->
+    <select id="checkExists" resultType="int">
+        SELECT COUNT(*) FROM _article_likes
+        WHERE user_id = #{userId} AND article_id = #{articleId}
     </select>
 </mapper>

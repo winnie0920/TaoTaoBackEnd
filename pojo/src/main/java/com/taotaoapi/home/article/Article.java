@@ -1,9 +1,10 @@
-package com.taotaoapi.home;
+package com.taotaoapi.home.article;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// 儲存資料庫article格式
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
