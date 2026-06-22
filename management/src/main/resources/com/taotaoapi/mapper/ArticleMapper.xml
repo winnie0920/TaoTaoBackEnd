@@ -83,7 +83,7 @@
         SELECT
         a.id,
         a.user_id AS userId,
-        u.email AS userName,
+        u.username AS userName,
         a.title,
         a.content,
 
@@ -193,5 +193,96 @@
     <select id="checkExists" resultType="int">
         SELECT COUNT(*) FROM _article_likes
         WHERE user_id = #{userId} AND article_id = #{articleId}
+    </select>
+
+    <!-- 新增收藏 -->
+    <insert id="insertFavorite">
+        INSERT INTO _article_favorites (user_id, article_id)
+        VALUES (#{userId}, #{articleId})
+    </insert>
+
+    <!-- 取消收藏 -->
+    <delete id="deleteFavorite">
+        DELETE FROM _article_favorites
+        WHERE user_id = #{userId} AND article_id = #{articleId}
+    </delete>
+
+    <!-- 檢查是否收藏 -->
+    <select id="checkFavoriteExists" resultType="int">
+        SELECT COUNT(1) FROM _article_favorites
+        WHERE user_id = #{userId} AND article_id = #{articleId}
+    </select>
+
+    <!--查詢文章的互動狀態（點讚、收藏、留言）-->
+    <select id="selectArticleStatus" resultType="com.taotaoapi.home.article.ArticleStatus">
+        SELECT
+            a.id,
+            (SELECT COUNT(*) FROM _article_likes WHERE article_id = a.id) AS likeCount,
+            (SELECT COUNT(*) FROM _article_favorites WHERE article_id = a.id) AS favoriteCount,
+            (SELECT COUNT(*) FROM _comments WHERE article_id = a.id) AS commentCount,
+            CASE WHEN EXISTS (SELECT 1 FROM _article_likes WHERE article_id = a.id AND user_id = #{userId}) THEN 1 ELSE 0 END AS liked,
+            CASE WHEN EXISTS (SELECT 1 FROM _article_favorites WHERE article_id = a.id AND user_id = #{userId}) THEN 1 ELSE 0 END AS favorited
+        FROM _articles a
+        WHERE a.id = #{articleId}
+    </select>
+
+    <!--取得留言-->
+    <select id="selectComments" resultType="com.taotaoapi.home.article.Comment">
+        SELECT
+            c.*,
+            u.username,
+            (c.user_id = #{userId}) as canDelete,
+            (SELECT COUNT(*) FROM _comment_likes WHERE comment_id = c.id) as totalLikes,
+            (SELECT EXISTS(SELECT 1 FROM _comment_likes WHERE comment_id = c.id AND user_id = #{userId})) as isLiked
+        FROM _comments c
+                 JOIN _user u ON c.user_id = u.id
+        WHERE c.article_id = #{articleId}
+        ORDER BY c.created_time DESC
+    </select>
+    <!--新增留言-->
+    <insert id="insertComment" parameterType="com.taotaoapi.home.article.Comment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO _comments (article_id, user_id, content)
+        VALUES (#{articleId}, #{userId}, #{content})
+    </insert>
+    <!--刪除留言-->
+    <delete id="deleteComment">
+        DELETE FROM _comments WHERE id = #{id}
+    </delete>
+
+    <!--檢查是否同個人或留過言-->
+    <select id="selectCommentById" resultType="com.taotaoapi.home.article.Comment">
+        SELECT
+            c.*,
+            u.username,
+            (SELECT COUNT(*) FROM _comment_likes WHERE comment_id = c.id) as totalLikes,
+            (SELECT EXISTS(SELECT 1 FROM _comment_likes WHERE comment_id = c.id AND user_id = #{userId})) as isLiked
+        FROM _comments c
+                 JOIN _user u ON c.user_id = u.id
+        WHERE c.id = #{id}
+    </select>
+
+    <!--刪除留言數量-->
+    <select id="countCommentsByArticleId" resultType="int">
+        SELECT COUNT(*) FROM _comments WHERE article_id = #{articleId}
+    </select>
+    <!--檢查用戶是否已按讚-->
+    <select id="checkCommentLikeExists" resultType="int">
+        SELECT COUNT(*) FROM _comment_likes WHERE comment_id = #{commentId} AND user_id = #{userId}
+    </select>
+    <!--新增留言讚-->
+    <insert id="insertCommentLike">
+        INSERT INTO _comment_likes (comment_id, user_id, created_time) VALUES (#{commentId}, #{userId}, NOW())
+    </insert>
+    <!--取消留言讚-->
+    <delete id="deleteCommentLike">
+        DELETE FROM _comment_likes WHERE comment_id = #{commentId} AND user_id = #{userId}
+    </delete>
+    <!--刪除留言讚-->
+    <delete id="deleteCommentLikesByCommentId">
+        DELETE FROM _comment_likes WHERE comment_id = #{commentId}
+    </delete>
+    <!-- 統計該留言的讚數-->
+    <select id="countCommentLikes" resultType="int">
+        SELECT COUNT(*) FROM _comment_likes WHERE comment_id = #{commentId}
     </select>
 </mapper>

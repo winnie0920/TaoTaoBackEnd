@@ -1026,7 +1026,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="297" parent="1" name="taotao">
-      <LastIntrospectionLocalTimestamp>2026-06-12.05:37:41</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2026-06-22.04:44:18</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="298" parent="1" name="mysql.infoschema">
@@ -1093,7 +1093,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
     <column id="313" parent="302" name="id">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>7</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1118,480 +1118,523 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="318" parent="302" name="uniq_fav">
+    <index id="318" parent="302" name="uk_article_fav">
       <ColNames>article_id
 user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="319" parent="302" name="PRIMARY">
+    <index id="319" parent="302" name="uniq_fav">
+      <ColNames>article_id
+user_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="320" parent="302" name="idx_article_fav_article">
+      <ColNames>article_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="321" parent="302" name="idx_article_fav_user">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="322" parent="302" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="320" parent="302" name="uniq_fav">
+    <key id="323" parent="302" name="uk_article_fav">
+      <UnderlyingIndexName>uk_article_fav</UnderlyingIndexName>
+    </key>
+    <key id="324" parent="302" name="uniq_fav">
       <UnderlyingIndexName>uniq_fav</UnderlyingIndexName>
     </key>
-    <column id="321" parent="303" name="id">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="325" parent="303" name="id">
+      <AutoIncrement>5</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="322" parent="303" name="article_id">
+    <column id="326" parent="303" name="article_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="323" parent="303" name="image_url">
+    <column id="327" parent="303" name="image_url">
       <DasType>varchar(500)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="324" parent="303" name="sort_order">
+    <column id="328" parent="303" name="sort_order">
       <DasType>int|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>4</Position>
     </column>
-    <column id="325" parent="303" name="is_cover">
+    <column id="329" parent="303" name="is_cover">
       <DasType>tinyint(1)|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>5</Position>
     </column>
-    <column id="326" parent="303" name="created_time">
+    <column id="330" parent="303" name="created_time">
       <DasType>timestamp|0s</DasType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>6</Position>
     </column>
-    <foreign-key id="327" parent="303" name="_article_images_ibfk_1">
+    <foreign-key id="331" parent="303" name="_article_images_ibfk_1">
       <ColNames>article_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>_articles</RefTableName>
     </foreign-key>
-    <index id="328" parent="303" name="PRIMARY">
+    <index id="332" parent="303" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="329" parent="303" name="article_id">
+    <index id="333" parent="303" name="idx_article_images_cover">
+      <ColNames>article_id
+is_cover</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="334" parent="303" name="idx_article_images_article">
       <ColNames>article_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="330" parent="303" name="PRIMARY">
+    <key id="335" parent="303" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="331" parent="304" name="id">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="336" parent="304" name="id">
+      <AutoIncrement>126</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="332" parent="304" name="article_id">
+    <column id="337" parent="304" name="article_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="333" parent="304" name="user_id">
+    <column id="338" parent="304" name="user_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="334" parent="304" name="created_time">
+    <column id="339" parent="304" name="created_time">
       <DasType>datetime|0s</DasType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>4</Position>
     </column>
-    <index id="335" parent="304" name="PRIMARY">
+    <index id="340" parent="304" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="336" parent="304" name="uniq_like">
+    <index id="341" parent="304" name="uk_article_like">
       <ColNames>article_id
 user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="337" parent="304" name="PRIMARY">
+    <index id="342" parent="304" name="uniq_like">
+      <ColNames>article_id
+user_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="343" parent="304" name="idx_article_likes_article">
+      <ColNames>article_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="344" parent="304" name="idx_article_likes_user">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="345" parent="304" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="338" parent="304" name="uniq_like">
+    <key id="346" parent="304" name="uk_article_like">
+      <UnderlyingIndexName>uk_article_like</UnderlyingIndexName>
+    </key>
+    <key id="347" parent="304" name="uniq_like">
       <UnderlyingIndexName>uniq_like</UnderlyingIndexName>
     </key>
-    <column id="339" parent="305" name="article_id">
+    <column id="348" parent="305" name="article_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="340" parent="305" name="tag_id">
+    <column id="349" parent="305" name="tag_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <foreign-key id="341" parent="305" name="_article_tags_ibfk_1">
+    <foreign-key id="350" parent="305" name="_article_tags_ibfk_1">
       <ColNames>article_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>_articles</RefTableName>
     </foreign-key>
-    <foreign-key id="342" parent="305" name="_article_tags_ibfk_2">
+    <foreign-key id="351" parent="305" name="_article_tags_ibfk_2">
       <ColNames>tag_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>_tags</RefTableName>
     </foreign-key>
-    <index id="343" parent="305" name="PRIMARY">
+    <index id="352" parent="305" name="PRIMARY">
       <ColNames>article_id
 tag_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="344" parent="305" name="tag_id">
+    <index id="353" parent="305" name="tag_id">
       <ColNames>tag_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="345" parent="305" name="PRIMARY">
+    <key id="354" parent="305" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="346" parent="306" name="id">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="355" parent="306" name="id">
+      <AutoIncrement>3</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="347" parent="306" name="user_id">
+    <column id="356" parent="306" name="user_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="348" parent="306" name="country_id">
+    <column id="357" parent="306" name="country_id">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="349" parent="306" name="title">
+    <column id="358" parent="306" name="title">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="350" parent="306" name="content">
+    <column id="359" parent="306" name="content">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="351" parent="306" name="created_time">
+    <column id="360" parent="306" name="created_time">
       <DasType>datetime|0s</DasType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>6</Position>
     </column>
-    <column id="352" parent="306" name="updated_time">
+    <column id="361" parent="306" name="updated_time">
       <DasType>datetime|0s</DasType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
       <Position>7</Position>
     </column>
-    <column id="353" parent="306" name="category_id">
+    <column id="362" parent="306" name="category_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <foreign-key id="354" parent="306" name="_articles_ibfk_1">
+    <foreign-key id="363" parent="306" name="_articles_ibfk_1">
       <ColNames>user_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>_user</RefTableName>
     </foreign-key>
-    <foreign-key id="355" parent="306" name="_articles_ibfk_2">
+    <foreign-key id="364" parent="306" name="_articles_ibfk_2">
       <ColNames>country_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>_countries</RefTableName>
     </foreign-key>
-    <foreign-key id="356" parent="306" name="_articles_ibfk_3">
+    <foreign-key id="365" parent="306" name="_articles_ibfk_3">
       <ColNames>category_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>_categories</RefTableName>
     </foreign-key>
-    <index id="357" parent="306" name="PRIMARY">
+    <index id="366" parent="306" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="358" parent="306" name="user_id">
+    <index id="367" parent="306" name="user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="359" parent="306" name="country_id">
+    <index id="368" parent="306" name="country_id">
       <ColNames>country_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="360" parent="306" name="category_id">
+    <index id="369" parent="306" name="category_id">
       <ColNames>category_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="361" parent="306" name="PRIMARY">
+    <key id="370" parent="306" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="362" parent="307" name="id">
-      <AutoIncrement>10</AutoIncrement>
+    <column id="371" parent="307" name="id">
+      <AutoIncrement>13</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="363" parent="307" name="name">
+    <column id="372" parent="307" name="name">
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="364" parent="307" name="icon">
+    <column id="373" parent="307" name="icon">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="365" parent="307" name="categories_key">
+    <column id="374" parent="307" name="categories_key">
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <index id="366" parent="307" name="PRIMARY">
+    <index id="375" parent="307" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="367" parent="307" name="name">
+    <index id="376" parent="307" name="name">
       <ColNames>name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="368" parent="307" name="categories_key">
+    <index id="377" parent="307" name="categories_key">
       <ColNames>categories_key</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="369" parent="307" name="PRIMARY">
+    <key id="378" parent="307" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="370" parent="307" name="name">
+    <key id="379" parent="307" name="name">
       <UnderlyingIndexName>name</UnderlyingIndexName>
     </key>
-    <key id="371" parent="307" name="categories_key">
+    <key id="380" parent="307" name="categories_key">
       <UnderlyingIndexName>categories_key</UnderlyingIndexName>
     </key>
-    <column id="372" parent="308" name="id">
+    <column id="381" parent="308" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="373" parent="308" name="comment_id">
+    <column id="382" parent="308" name="comment_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="374" parent="308" name="user_id">
+    <column id="383" parent="308" name="user_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="375" parent="308" name="created_time">
+    <column id="384" parent="308" name="created_time">
       <DasType>datetime|0s</DasType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>4</Position>
     </column>
-    <index id="376" parent="308" name="PRIMARY">
+    <index id="385" parent="308" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="377" parent="308" name="uniq_comment_like">
+    <index id="386" parent="308" name="uniq_comment_like">
       <ColNames>comment_id
 user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="378" parent="308" name="PRIMARY">
+    <key id="387" parent="308" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="379" parent="308" name="uniq_comment_like">
+    <key id="388" parent="308" name="uniq_comment_like">
       <UnderlyingIndexName>uniq_comment_like</UnderlyingIndexName>
     </key>
-    <column id="380" parent="309" name="id">
+    <column id="389" parent="309" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="381" parent="309" name="article_id">
+    <column id="390" parent="309" name="article_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="382" parent="309" name="user_id">
+    <column id="391" parent="309" name="user_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="383" parent="309" name="content">
+    <column id="392" parent="309" name="content">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="384" parent="309" name="created_time">
+    <column id="393" parent="309" name="created_time">
       <DasType>datetime|0s</DasType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>5</Position>
     </column>
-    <foreign-key id="385" parent="309" name="_comments_ibfk_1">
+    <foreign-key id="394" parent="309" name="_comments_ibfk_1">
       <ColNames>article_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>_articles</RefTableName>
     </foreign-key>
-    <foreign-key id="386" parent="309" name="_comments_ibfk_2">
+    <foreign-key id="395" parent="309" name="_comments_ibfk_2">
       <ColNames>user_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>_user</RefTableName>
     </foreign-key>
-    <index id="387" parent="309" name="PRIMARY">
+    <index id="396" parent="309" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="388" parent="309" name="article_id">
+    <index id="397" parent="309" name="idx_comments_article">
       <ColNames>article_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="389" parent="309" name="user_id">
+    <index id="398" parent="309" name="user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="390" parent="309" name="PRIMARY">
+    <key id="399" parent="309" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="391" parent="310" name="id">
+    <column id="400" parent="310" name="id">
       <AutoIncrement>11</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="392" parent="310" name="country_key">
+    <column id="401" parent="310" name="country_key">
       <DasType>varchar(10)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="393" parent="310" name="name">
+    <column id="402" parent="310" name="name">
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="394" parent="310" name="icon">
+    <column id="403" parent="310" name="icon">
       <DasType>varchar(50)|0s</DasType>
       <Position>4</Position>
     </column>
-    <index id="395" parent="310" name="PRIMARY">
+    <index id="404" parent="310" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="396" parent="310" name="PRIMARY">
+    <key id="405" parent="310" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="397" parent="311" name="id">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="406" parent="311" name="id">
+      <AutoIncrement>41</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="398" parent="311" name="name">
+    <column id="407" parent="311" name="name">
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="399" parent="311" name="tag_key">
+    <column id="408" parent="311" name="tag_key">
       <DasType>varchar(50)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="400" parent="311" name="icon">
+    <column id="409" parent="311" name="icon">
       <DasType>varchar(50)|0s</DasType>
       <Position>4</Position>
     </column>
-    <index id="401" parent="311" name="PRIMARY">
+    <index id="410" parent="311" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="402" parent="311" name="name">
+    <index id="411" parent="311" name="name">
       <ColNames>name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="403" parent="311" name="PRIMARY">
+    <key id="412" parent="311" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="404" parent="311" name="name">
+    <key id="413" parent="311" name="name">
       <UnderlyingIndexName>name</UnderlyingIndexName>
     </key>
-    <column id="405" parent="312" name="id">
+    <column id="414" parent="312" name="id">
       <AutoIncrement>4</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="406" parent="312" name="firstname">
+    <column id="415" parent="312" name="firstname">
       <DasType>varchar(50)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="407" parent="312" name="lastname">
+    <column id="416" parent="312" name="lastname">
       <DasType>varchar(50)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="408" parent="312" name="email">
+    <column id="417" parent="312" name="email">
       <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="409" parent="312" name="phone">
+    <column id="418" parent="312" name="phone">
       <DasType>varchar(20)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="410" parent="312" name="password">
+    <column id="419" parent="312" name="password">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="411" parent="312" name="role">
+    <column id="420" parent="312" name="role">
       <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <index id="412" parent="312" name="PRIMARY">
+    <column id="421" parent="312" name="username">
+      <DasType>varchar(100)|0s</DasType>
+      <Position>8</Position>
+    </column>
+    <index id="422" parent="312" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="413" parent="312" name="email">
+    <index id="423" parent="312" name="email">
       <ColNames>email</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="414" parent="312" name="PRIMARY">
+    <key id="424" parent="312" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="415" parent="312" name="email">
+    <key id="425" parent="312" name="email">
       <UnderlyingIndexName>email</UnderlyingIndexName>
     </key>
   </database-model>

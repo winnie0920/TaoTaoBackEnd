@@ -40,11 +40,11 @@ application:
   security:
     jwt:
       secret-key: vrvQ+YWFe4bjOAqIqso7aMrMz9yqeiV6grsz0TDfhawdVNRYdKGQQ7zcTQEHfCkC6DsT5htL4vc4KBsL44VObQ==
-      expiration: 86400000 # 1 day
+      expiration: 900000 # 15 ms
       refresh-token:
         expiration: 604800000 # 7 days
       reset:
-        expiration: 90000 # 15 ms
+        expiration: 900000 # 15 ms
 
 mybatis:
   mapper-locations: classpath*:com/taotaoapi/mapper/*.xml

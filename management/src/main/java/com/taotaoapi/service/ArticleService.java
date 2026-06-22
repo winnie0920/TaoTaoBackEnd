@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -98,40 +99,134 @@ public class ArticleService {
         }
     }
 
-    // 新增、取消點讚
-    // 專門負責攔截 Redis 連擊
-    public String postArticleLike(Long articleId, String email) {
+    // 新增、取消按讚
+    public ArticleStatus postArticleLike(Long articleId, String email) {
+        // 建立鎖的唯一識別 Key
         String lockKey = "lock:like:" + email + ":" + articleId;
-
+        // 使用 Redis，避免因系統當機導致鎖死，若取得失敗代表請求頻繁中
         Boolean isLock = redisTemplate.opsForValue().setIfAbsent(lockKey, "1", Duration.ofMillis(300));
-
-        if (Boolean.FALSE.equals(isLock)) {
-            User user = userMapper.findByEmail(email);
-            int count = articleMapper.checkExists(Long.valueOf(user.getId()), articleId);
-
-            return count > 0 ? "取消點讚成功" : "點讚成功";
-        }
-        // 鎖拿到了，再呼叫真正內層的事務方法去操作資料庫
-        return this.executeLikeTransaction(articleId, email);
-    }
-    @Transactional
-    public String executeLikeTransaction(Long articleId, String email) {
         User user = userMapper.findByEmail(email);
         Long userId = Long.valueOf(user.getId());
+        // 表示該用戶有重複請求正在處理，避免重複寫入
+        if (Boolean.FALSE.equals(isLock)) {
+            return articleMapper.selectArticleStatus(articleId, userId);
+        }
+        try {
+            return this.postLikeTransaction(articleId, userId);
+        } finally {
+            redisTemplate.delete(lockKey);
+        }
+    }
 
+    @Transactional
+    public ArticleStatus postLikeTransaction(Long articleId, Long userId) {
+        // 檢查用戶是否按讚
         int count = articleMapper.checkExists(userId, articleId);
-
+        // 該用戶按過讚
         if (count > 0) {
             articleMapper.deleteLike(userId, articleId);
-            return "取消點讚成功";
         } else {
-            try {
-                articleMapper.insertLike(userId, articleId);
-                return "點讚成功";
-            } catch (DuplicateKeyException e) {
-                // 雙重保險：萬一 Redis 鎖極端情況下失效，這裡兜底拋出異常，不噴 500
-                throw new BusinessException(400, "你已經點讚過囉！");
-            }
+            // 該用戶未按過讚
+            articleMapper.insertLike(userId, articleId);
         }
+        // 回傳按讚資訊
+        return articleMapper.selectArticleStatus(articleId, userId);
+    }
+
+    // 新增、取消收藏
+    public ArticleStatus postArticleFavorite(Long articleId, String email) {
+        // 鎖 Key 加上 favorite 標識，區隔點讚操作
+        String lockKey = "lock:favorite:" + email + ":" + articleId;
+        Boolean isLock = redisTemplate.opsForValue().setIfAbsent(lockKey, "1", Duration.ofMillis(300));
+        User user = userMapper.findByEmail(email);
+        Long userId = Long.valueOf(user.getId());
+        if (Boolean.FALSE.equals(isLock)) {
+            return articleMapper.selectArticleStatus(articleId, userId);
+        }
+        try {
+            return this.executeFavoriteTransaction(articleId, userId);
+        } finally {
+            redisTemplate.delete(lockKey);
+        }
+    }
+
+    @Transactional
+    public ArticleStatus executeFavoriteTransaction(Long articleId, Long userId) {
+        int count = articleMapper.checkFavoriteExists(userId, articleId);
+        if (count > 0) {
+            articleMapper.deleteFavorite(userId, articleId);
+        } else {
+            articleMapper.insertFavorite(userId, articleId);
+        }
+        return articleMapper.selectArticleStatus(articleId, userId);
+    }
+
+    // 取得留言
+    public List<Comment> getComments(Long articleId, String email) {
+        User user = userMapper.findByEmail(email);
+        Integer currentUserId = user.getId();
+        return articleMapper.selectComments(articleId, currentUserId);
+    }
+
+
+    // 新增留言
+    public Integer postComment(Long articleId, String email, String content) {
+        User user = userMapper.findByEmail(email);
+        Comment comment = new Comment();
+        comment.setArticleId(articleId);
+        comment.setUserId(user.getId());
+        comment.setContent(content);
+        articleMapper.insertComment(comment);
+        return articleMapper.countCommentsByArticleId(articleId);
+    }
+
+    // 刪除留言
+    @Transactional
+    public Integer deleteComment(Long id, String email) {
+        User user = userMapper.findByEmail(email);
+        Comment oldComment = articleMapper.selectCommentById(id, user.getId());
+        if (oldComment != null && oldComment.getUserId().equals(user.getId())) {
+            // 先刪除該留言的所有「讚」記錄
+            articleMapper.deleteCommentLikesByCommentId(id);
+            // 再刪除留言本身
+            articleMapper.deleteComment(id);
+            // 回傳最新的留言總數
+            return articleMapper.countCommentsByArticleId(oldComment.getArticleId());
+        } else {
+            throw new RuntimeException("留言不存在或無權限修改");
+        }
+    }
+
+    // 新增、取消留言讚
+    public Integer postCommentLike(Long commentId, String email) {
+        User user = userMapper.findByEmail(email);
+        Integer userId = user.getId();
+
+        // Redis 分散式鎖，避免短時間內重複點擊
+        String lockKey = "lock:commentLike:" + userId + ":" + commentId;
+        Boolean isLock = redisTemplate.opsForValue().setIfAbsent(lockKey, "1", Duration.ofMillis(500));
+
+        if (Boolean.FALSE.equals(isLock)) {
+            // 若鎖定中，直接回傳當前讚數 (防止重複提交)
+            return articleMapper.countCommentLikes(commentId);
+        }
+        try {
+            return this.executeCommentLikeTransaction(commentId, userId);
+        } finally {
+            redisTemplate.delete(lockKey);
+        }
+    }
+
+    @Transactional
+    public Integer executeCommentLikeTransaction(Long commentId, Integer userId) {
+        // 檢查是否已按讚
+        int count = articleMapper.checkCommentLikeExists(commentId, userId);
+
+        if (count > 0) {
+            articleMapper.deleteCommentLike(commentId, userId);
+        } else {
+            articleMapper.insertCommentLike(commentId, userId);
+        }
+        return articleMapper.countCommentLikes(commentId);
     }
 }
