@@ -47,6 +47,7 @@ public class AuthenticationService {
     User user = new User();
     user.setFirstname(request.getFirstname());
     user.setLastname(request.getLastname());
+    user.setUsername(request.getUsername());
     user.setEmail(request.getEmail());
     user.setPhone(request.getPhone());
     user.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -56,6 +57,8 @@ public class AuthenticationService {
 
     String accessToken = jwtService.generateToken(user);
     String refreshToken = jwtService.generateRefreshToken(user);
+    long expiredDate = System.currentTimeMillis() + jwtService.getJwtExpiration();
+    long expiredDateR = System.currentTimeMillis() + jwtService.getRefreshExpiration();
 
     redisTokenService.saveAccessToken(user.getId(), accessToken, 15 * 60);
     redisTokenService.saveRefreshToken(user.getId(), refreshToken, 7 * 24 * 60 * 60);
@@ -63,6 +66,8 @@ public class AuthenticationService {
     return AuthenticationResponse.builder()
             .accessToken(accessToken)
             .refreshToken(refreshToken)
+            .expiredDate(expiredDate)
+            .expiredDateR(expiredDateR)
             .build();
   }
   /**
@@ -83,6 +88,8 @@ public class AuthenticationService {
 
     String accessToken = jwtService.generateToken(user);
     String refreshToken = jwtService.generateRefreshToken(user);
+    long expiredDate = System.currentTimeMillis() + jwtService.getJwtExpiration();
+    long expiredDateR = System.currentTimeMillis() + jwtService.getRefreshExpiration();
 
     // login = 踢掉舊 session
     redisTokenService.revokeUser(user.getId());
@@ -90,9 +97,12 @@ public class AuthenticationService {
     redisTokenService.saveAccessToken(user.getId(), accessToken, 15 * 60);
     redisTokenService.saveRefreshToken(user.getId(), refreshToken, 7 * 24 * 60 * 60);
 
+
     return AuthenticationResponse.builder()
             .accessToken(accessToken)
             .refreshToken(refreshToken)
+            .expiredDate(expiredDate)
+            .expiredDateR(expiredDateR)
             .build();
   }
 
@@ -115,10 +125,14 @@ public class AuthenticationService {
 
     String newAccessToken = jwtService.generateToken(user);
     redisTokenService.saveAccessToken(user.getId(), newAccessToken, 15 * 60);
+    long expiredDate = System.currentTimeMillis() + jwtService.getJwtExpiration();
+    long expiredDateR = System.currentTimeMillis() + jwtService.getRefreshExpiration();
 
     return AuthenticationResponse.builder()
             .accessToken(newAccessToken)
             .refreshToken(refreshToken)
+            .expiredDate(expiredDate)
+            .expiredDateR(expiredDateR)
             .build();
   }
 }

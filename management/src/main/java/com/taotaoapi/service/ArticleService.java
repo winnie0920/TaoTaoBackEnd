@@ -27,6 +27,7 @@ public class ArticleService {
     private final UserMapper userMapper;
     private final ArticleMapper articleMapper;
 
+    // 取得文章
     public Page<ArticleList> getArticleList(
             ArticleQuery query,
             String email
@@ -131,6 +132,35 @@ public class ArticleService {
         }
         // 回傳按讚資訊
         return articleMapper.selectArticleStatus(articleId, userId);
+    }
+
+    // 取得收藏文章
+    public Page<ArticleList> getFavoriteArticleList(ArticleQuery query, String email) {
+        User user = userMapper.findByEmail(email);
+        Long userId = Long.valueOf(user.getId());
+
+        // 1. 取得收藏列表
+        List<ArticleList> list = articleMapper.selectFavoriteArticles(query, userId);
+
+        // 2. 補上圖片與標籤 (這部分你原本應該有在 Service 做這件事)
+        // 記得循環 list，呼叫 selectImagesByArticleId 和 selectTagsByArticleId 補齊資料
+        list.forEach(article -> {
+            article.setImages(articleMapper.selectImagesByArticleId(article.getId()));
+            article.setTags(articleMapper.selectTagsByArticleId(article.getId()));
+        });
+
+        // 3. 分頁與 Cursor 判斷
+        boolean hasMore = (list.size() == query.getSize());
+        Long lastId = list.isEmpty() ? null : list.get(list.size() - 1).getId();
+        Long total = articleMapper.countFavoriteArticles(userId);
+
+        Page<ArticleList> vo = new Page<>();
+        vo.setList(list);
+        vo.setHasMore(hasMore);
+        vo.setTotal(total);
+        vo.setLastId(lastId);
+
+        return vo;
     }
 
     // 新增、取消收藏

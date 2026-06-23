@@ -52,6 +52,18 @@ public class ArticleController {
         return ApiResponse.success("新增、取消成功", status);
     }
 
+    // 取得收藏文章
+    @GetMapping("/favorite")
+    public ApiResponse<Page<ArticleList>> getFavoriteArticles(
+            ArticleQuery query,
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        return ApiResponse.success(
+                "查詢成功",
+                articleService.getFavoriteArticleList(query, userDetails.getUsername())
+        );
+    }
+
     // 新增、取消收藏
     @PostMapping("/favorite")
     public ApiResponse<ArticleStatus> postArticleFavorite(

@@ -11,11 +11,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
+@Getter
 public class JwtService {
 
   @Value("${application.security.jwt.secret-key}")
@@ -26,7 +28,6 @@ public class JwtService {
   private long refreshExpiration;
   @Value("${application.security.jwt.reset.expiration}")
   private long resetExpiration;
-
 
   /**
    * 從 JWT 中取出使用者名稱(email)

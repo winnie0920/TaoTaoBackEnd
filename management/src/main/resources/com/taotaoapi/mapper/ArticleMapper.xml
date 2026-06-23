@@ -195,6 +195,43 @@
         WHERE user_id = #{userId} AND article_id = #{articleId}
     </select>
 
+    <!-- 取得收藏 -->
+    <select id="selectFavoriteArticles" resultMap="ArticleList">
+        SELECT
+        a.id, a.user_id AS userId, u.username AS userName,
+        a.title, a.content, a.country_id AS countryId,
+        cou.name AS countryName, cou.icon AS countryIcon,
+        a.category_id AS categoryId, cat.name AS categoryName, cat.icon AS categoryIcon,
+        COALESCE(l.like_count, 0) AS likeCount,
+        COALESCE(c.comment_count, 0) AS commentCount,
+        COALESCE(f.favorite_count, 0) AS favoriteCount,
+        CASE WHEN ul.user_id IS NOT NULL THEN TRUE ELSE FALSE END AS liked,
+        TRUE AS favorited,
+        a.created_time AS createdTime
+        FROM _article_favorites af
+        JOIN _articles a ON af.article_id = a.id
+        JOIN _user u ON u.id = a.user_id
+        LEFT JOIN _categories cat ON cat.id = a.category_id
+        LEFT JOIN _countries cou ON cou.id = a.country_id
+        LEFT JOIN (SELECT article_id, COUNT(*) AS like_count FROM _article_likes GROUP BY article_id) l ON l.article_id = a.id
+        LEFT JOIN (SELECT article_id, COUNT(*) AS comment_count FROM _comments GROUP BY article_id) c ON c.article_id = a.id
+        LEFT JOIN (SELECT article_id, COUNT(*) AS favorite_count FROM _article_favorites GROUP BY article_id) f ON f.article_id = a.id
+        LEFT JOIN _article_likes ul ON ul.article_id = a.id AND ul.user_id = #{userId}
+        WHERE af.user_id = #{userId}
+        <if test="query.lastId != null">
+            AND a.id &lt; #{query.lastId}
+        </if>
+        ORDER BY af.created_time DESC
+        LIMIT #{query.size}
+    </select>
+
+    <!-- 計算全部收藏 -->
+    <select id="countFavoriteArticles" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM _article_favorites
+        WHERE user_id = #{userId}
+    </select>
+
     <!-- 新增收藏 -->
     <insert id="insertFavorite">
         INSERT INTO _article_favorites (user_id, article_id)

@@ -42,6 +42,18 @@ public interface ArticleMapper {
             @Param("articleId") Long articleId
     );
 
+
+    // 取得收藏文章列表
+    List<ArticleList> selectFavoriteArticles(
+            @Param("query") ArticleQuery query,
+            @Param("userId") Long userId
+    );
+
+    // 計算該使用者的收藏總數
+    Long countFavoriteArticles(
+            @Param("userId") Long userId
+    );
+
     // 新增收藏紀錄
     void insertFavorite(
             @Param("userId") Long userId,
@@ -59,6 +71,7 @@ public interface ArticleMapper {
             @Param("userId") Long userId,
             @Param("articleId") Long articleId
     );
+
 
     // 查詢文章按讚、收藏、留言
     ArticleStatus selectArticleStatus(
@@ -98,5 +111,8 @@ public interface ArticleMapper {
 
     // 統計該留言的讚數
     int countCommentLikes(@Param("commentId") Long commentId);
+
+    // 撈取指定文章內的所有圖片資料
+    List<ArticleImage> selectImagesByArticleId(Long articleId);
 
 }
