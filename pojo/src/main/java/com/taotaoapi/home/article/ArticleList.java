@@ -13,9 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleList {
-    private Long id;
+    private Integer id;
     private Long userId;
-    private String userName;
+    private String nickname;
+    private String userImage;
 
     private String title;
     private String content;

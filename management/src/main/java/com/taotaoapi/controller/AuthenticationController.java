@@ -18,9 +18,7 @@ import java.io.IOException;
 public class AuthenticationController {
   // 驗證相關邏輯
   private final AuthenticationService service;
-  /**
-   * 註冊帳號
-   */
+  // 註冊帳號
   @PostMapping("/register")
   public  ApiResponse<AuthenticationResponse> register(
           @RequestBody RegisterRequest request
@@ -28,19 +26,14 @@ public class AuthenticationController {
     return ApiResponse.success("註冊成功", service.register(request));
   }
 
-  /**
-   * 使用者登入
-   */
+  // 使用者登入
   @PostMapping("/authenticate")
   public  ApiResponse<AuthenticationResponse> authenticate(
           @RequestBody AuthenticationRequest request
   ) {
     return ApiResponse.success("登入成功", service.authenticate(request));
   }
-
-  /**
-   * 更新 Access Token
-   */
+  // 更新 Access Token
   @PostMapping("/refresh-token")
   public ApiResponse<AuthenticationResponse> refreshToken(
           @RequestHeader("Authorization") String authHeader) {

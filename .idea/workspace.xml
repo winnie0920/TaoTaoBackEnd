@@ -5,18 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="045b65af-9f11-4709-9969-31f04eeb4e3e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/user/UserDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/user/UserUpdateDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f10560d5-632a-407d-aacb-074414cd974d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f10560d5-632a-407d-aacb-074414cd974d.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/ApplicationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/ApplicationConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/config/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/controller/AuthenticationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/mapper/ArticleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/mapper/ArticleMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/mapper/UserMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/ArticleService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/AuthenticationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/JwtService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/UploadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/HomeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/HomeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/LogoutService.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/com/taotaoapi/service/LogoutService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/management/src/main/resources/com/taotaoapi/mapper/ArticleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/resources/com/taotaoapi/mapper/ArticleMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/management/src/main/resources/com/taotaoapi/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/resources/com/taotaoapi/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/auth/AuthenticationResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/auth/AuthenticationResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/auth/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/auth/RegisterRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/article/ArticleImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/article/ArticleImage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/article/ArticleList.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/article/ArticleList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/article/ArticleQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/article/ArticleQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/article/ArticleTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/article/ArticleTag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/article/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/article/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/article/Page.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/article/Page.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/user/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/pojo/src/main/java/com/taotaoapi/home/user/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +43,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package-info" />
-        <option value="Class" />
         <option value="AnnotationType" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -112,9 +128,9 @@
       <recent name="C:\Users\USER\Desktop\code\TaoTaoApi" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.taotaoapi" />
       <recent name="com.taotaoapi.home" />
       <recent name="com.taotaoapi.mapper" />
-      <recent name="com.taotaoapi" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.taotaoapi.config.upload" />
@@ -175,7 +191,9 @@
       <workItem from="1782187853167" duration="6910000" />
       <workItem from="1782199713316" duration="255000" />
       <workItem from="1782199975602" duration="35000" />
-      <workItem from="1782200017377" duration="923000" />
+      <workItem from="1782200017377" duration="1521000" />
+      <workItem from="1782279924758" duration="6331000" />
+      <workItem from="1782361061452" duration="12946000" />
     </task>
     <servers />
   </component>

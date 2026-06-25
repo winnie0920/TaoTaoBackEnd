@@ -1,6 +1,5 @@
 package com.taotaoapi.auth;
 
-import com.taotaoapi.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class RegisterRequest {
   private String firstname;
   private String lastname;
-  private String username;
+  private String nickname;
   private String email;
   private String password;
   private String phone;

@@ -5,5 +5,5 @@ import lombok.Data;
 
 @Data
 public class ArticleImage extends Image {
-    private Long id;
+    private Integer id;
 }

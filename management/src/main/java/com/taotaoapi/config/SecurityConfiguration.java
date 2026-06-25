@@ -21,8 +21,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 import java.util.List;
-import static com.taotaoapi.user.Role.ADMIN;
-import static com.taotaoapi.user.Role.MANAGER;
+import static com.taotaoapi.home.Role.ADMIN;
+import static com.taotaoapi.home.Role.MANAGER;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Slf4j

@@ -1,24 +1,18 @@
 package com.taotaoapi.service;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.taotaoapi.auth.AuthenticationRequest;
 import com.taotaoapi.auth.AuthenticationResponse;
 import com.taotaoapi.auth.RegisterRequest;
 import com.taotaoapi.exception.BusinessException;
 import com.taotaoapi.mapper.UserMapper;
-import com.taotaoapi.user.User;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.taotaoapi.home.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.IOException;
 
 @Slf4j
 @Service
@@ -47,7 +41,7 @@ public class AuthenticationService {
     User user = new User();
     user.setFirstname(request.getFirstname());
     user.setLastname(request.getLastname());
-    user.setUsername(request.getUsername());
+    user.setNickname(request.getNickname());
     user.setEmail(request.getEmail());
     user.setPhone(request.getPhone());
     user.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -80,7 +74,7 @@ public class AuthenticationService {
       authenticationManager.authenticate(
               new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
       );
-    } catch (BadCredentialsException e) {
+    } catch (AuthenticationException e) {
       throw new BusinessException(401, "帳號或密碼錯誤");
     }
 

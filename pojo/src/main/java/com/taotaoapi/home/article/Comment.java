@@ -14,8 +14,9 @@ public class Comment {
     private Long articleId;
     private boolean canDelete;
     private Integer userId;
-    private String username;
+    private String nickname;
     private String content;
+    private String imageUrl;
     private long totalLikes;
     private boolean isLiked;
 }

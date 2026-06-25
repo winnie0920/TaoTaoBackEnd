@@ -14,5 +14,5 @@ public class Page<T> {
     private List<T> list;
     private Long total;
     private Boolean hasMore;
-    private Long lastId;
+    private Integer lastId;
 }

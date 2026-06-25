@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleTag {
-    private Long id;
+    private Integer id;
     private String name;
 }

@@ -1,7 +1,7 @@
 package com.taotaoapi.config;
 
 import com.taotaoapi.exception.BusinessException;
-import com.taotaoapi.user.User;
+import com.taotaoapi.home.user.User;
 import com.taotaoapi.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

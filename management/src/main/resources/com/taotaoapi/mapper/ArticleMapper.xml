@@ -30,7 +30,8 @@
         <id property="id" column="id"/>
 
         <result property="userId" column="userId"/>
-        <result property="userName" column="userName"/>
+        <result property="nickname" column="nickname"/>
+        <result property="userImage" column="imageUrl"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="likeCount" column="likeCount"/>
@@ -83,7 +84,8 @@
         SELECT
         a.id,
         a.user_id AS userId,
-        u.username AS userName,
+        u.nickname AS nickname,
+        u.image_url AS imageUrl,
         a.title,
         a.content,
 
@@ -136,6 +138,9 @@
         AND uf.user_id = #{userId}
 
         <where>
+            <if test="query.authorId != null">
+                AND a.user_id = #{query.authorId}
+            </if>
             <if test="query.keyword != null and query.keyword != ''">
                 AND (
                 a.title LIKE CONCAT('%', #{query.keyword}, '%')
@@ -198,7 +203,7 @@
     <!-- 取得收藏 -->
     <select id="selectFavoriteArticles" resultMap="ArticleList">
         SELECT
-        a.id, a.user_id AS userId, u.username AS userName,
+        a.id, a.user_id AS userId, u.nickname AS nickname,u.image_url AS imageUrl,
         a.title, a.content, a.country_id AS countryId,
         cou.name AS countryName, cou.icon AS countryIcon,
         a.category_id AS categoryId, cat.name AS categoryName, cat.icon AS categoryIcon,
@@ -226,7 +231,7 @@
     </select>
 
     <!-- 計算全部收藏 -->
-    <select id="countFavoriteArticles" resultType="java.lang.Long">
+    <select id="countFavoriteArticles" resultType="long">
         SELECT COUNT(*)
         FROM _article_favorites
         WHERE user_id = #{userId}
@@ -267,7 +272,8 @@
     <select id="selectComments" resultType="com.taotaoapi.home.article.Comment">
         SELECT
             c.*,
-            u.username,
+            u.nickname,
+            u.image_url,
             (c.user_id = #{userId}) as canDelete,
             (SELECT COUNT(*) FROM _comment_likes WHERE comment_id = c.id) as totalLikes,
             (SELECT EXISTS(SELECT 1 FROM _comment_likes WHERE comment_id = c.id AND user_id = #{userId})) as isLiked
@@ -290,7 +296,7 @@
     <select id="selectCommentById" resultType="com.taotaoapi.home.article.Comment">
         SELECT
             c.*,
-            u.username,
+            u.nickname,
             (SELECT COUNT(*) FROM _comment_likes WHERE comment_id = c.id) as totalLikes,
             (SELECT EXISTS(SELECT 1 FROM _comment_likes WHERE comment_id = c.id AND user_id = #{userId})) as isLiked
         FROM _comments c

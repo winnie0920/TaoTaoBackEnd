@@ -5,7 +5,7 @@ import com.taotaoapi.mapper.UserMapper;
 import com.taotaoapi.response.ApiResponse;
 import com.taotaoapi.service.JwtService;
 import com.taotaoapi.service.RedisTokenService;
-import com.taotaoapi.user.User;
+import com.taotaoapi.home.user.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

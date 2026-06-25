@@ -20,7 +20,7 @@ public interface ArticleMapper {
 
     List<ArticleList> selectArticleList(
             @Param("query") ArticleQuery query,
-            @Param("userId") Long userId
+            @Param("userId") Integer userId
     );
     Long countArticles(ArticleQuery query);
 
@@ -46,12 +46,12 @@ public interface ArticleMapper {
     // 取得收藏文章列表
     List<ArticleList> selectFavoriteArticles(
             @Param("query") ArticleQuery query,
-            @Param("userId") Long userId
+            @Param("userId") Integer userId
     );
 
     // 計算該使用者的收藏總數
     Long countFavoriteArticles(
-            @Param("userId") Long userId
+            @Param("userId") Integer userId
     );
 
     // 新增收藏紀錄
@@ -80,7 +80,7 @@ public interface ArticleMapper {
     );
 
     // 查詢標籤
-    List<ArticleTag> selectTagsByArticleId(@Param("id") Long id);
+    List<ArticleTag> selectTagsByArticleId(@Param("id") Integer id);
 
     // 取得留言
     List<Comment> selectComments(@Param("articleId") Long articleId, @Param("userId") Integer userId);
@@ -113,6 +113,6 @@ public interface ArticleMapper {
     int countCommentLikes(@Param("commentId") Long commentId);
 
     // 撈取指定文章內的所有圖片資料
-    List<ArticleImage> selectImagesByArticleId(Long articleId);
+    List<ArticleImage> selectImagesByArticleId(Integer articleId);
 
 }

@@ -5,17 +5,15 @@ import com.taotaoapi.home.Image;
 import com.taotaoapi.home.article.*;
 import com.taotaoapi.mapper.ArticleMapper;
 import com.taotaoapi.mapper.UserMapper;
-import com.taotaoapi.user.User;
+import com.taotaoapi.home.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -26,38 +24,15 @@ public class ArticleService {
     private StringRedisTemplate redisTemplate;
     private final UserMapper userMapper;
     private final ArticleMapper articleMapper;
-
     // 取得文章
-    public Page<ArticleList> getArticleList(
-            ArticleQuery query,
-            String email
-    ) {
-
+    public Page<ArticleList> getArticleList(ArticleQuery query, String email) {
         User user = userMapper.findByEmail(email);
-        Long userId = Long.valueOf(user.getId());
+        Integer userId = user.getId();
 
-        List<ArticleList> list =
-                articleMapper.selectArticleList(query, userId);
+        List<ArticleList> list = articleMapper.selectArticleList(query, userId);
+        enrichArticles(list); // 補圖片標籤
 
-        // cursor 核心：判斷下一頁
-        boolean hasMore = false;
-        Long lastId = null;
-
-        if (!list.isEmpty()) {
-            lastId = list.get(list.size() - 1).getId();
-            hasMore = list.size() == query.getSize();
-        }
-
-        Page<ArticleList> vo = new Page<>();
-        vo.setList(list);
-        vo.setHasMore(hasMore);
-        Long total = articleMapper.countArticles(query);
-        vo.setTotal(total);
-
-        // 回傳 cursor
-        vo.setLastId(lastId);
-
-        return vo;
+        return buildPageResponse(list, query, articleMapper.countArticles(query));
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -136,31 +111,10 @@ public class ArticleService {
 
     // 取得收藏文章
     public Page<ArticleList> getFavoriteArticleList(ArticleQuery query, String email) {
-        User user = userMapper.findByEmail(email);
-        Long userId = Long.valueOf(user.getId());
-
-        // 1. 取得收藏列表
+        Integer userId = userMapper.findByEmail(email).getId();
         List<ArticleList> list = articleMapper.selectFavoriteArticles(query, userId);
-
-        // 2. 補上圖片與標籤 (這部分你原本應該有在 Service 做這件事)
-        // 記得循環 list，呼叫 selectImagesByArticleId 和 selectTagsByArticleId 補齊資料
-        list.forEach(article -> {
-            article.setImages(articleMapper.selectImagesByArticleId(article.getId()));
-            article.setTags(articleMapper.selectTagsByArticleId(article.getId()));
-        });
-
-        // 3. 分頁與 Cursor 判斷
-        boolean hasMore = (list.size() == query.getSize());
-        Long lastId = list.isEmpty() ? null : list.get(list.size() - 1).getId();
-        Long total = articleMapper.countFavoriteArticles(userId);
-
-        Page<ArticleList> vo = new Page<>();
-        vo.setList(list);
-        vo.setHasMore(hasMore);
-        vo.setTotal(total);
-        vo.setLastId(lastId);
-
-        return vo;
+        enrichArticles(list);
+        return buildPageResponse(list, query, articleMapper.countFavoriteArticles(userId));
     }
 
     // 新增、取消收藏
@@ -228,6 +182,7 @@ public class ArticleService {
     }
 
     // 新增、取消留言讚
+    @Transactional
     public Integer postCommentLike(Long commentId, String email) {
         User user = userMapper.findByEmail(email);
         Integer userId = user.getId();
@@ -258,5 +213,27 @@ public class ArticleService {
             articleMapper.insertCommentLike(commentId, userId);
         }
         return articleMapper.countCommentLikes(commentId);
+    }
+
+
+
+    // 共用邏輯：補齊圖片與標籤
+    public void enrichArticles(List<ArticleList> list) {
+        list.forEach(article -> {
+            article.setImages(articleMapper.selectImagesByArticleId(article.getId()));
+            article.setTags(articleMapper.selectTagsByArticleId(article.getId()));
+        });
+    }
+    // 共用邏輯：封裝分頁與 Response
+    public Page<ArticleList> buildPageResponse(List<ArticleList> list, ArticleQuery query, Long total) {
+        boolean hasMore = !list.isEmpty() && list.size() == query.getSize();
+        Integer lastId = list.isEmpty() ? null : list.get(list.size() - 1).getId();
+
+        Page<ArticleList> vo = new Page<>();
+        vo.setList(list);
+        vo.setHasMore(hasMore);
+        vo.setTotal(total);
+        vo.setLastId(lastId);
+        return vo;
     }
 }

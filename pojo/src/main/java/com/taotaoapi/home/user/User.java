@@ -1,5 +1,7 @@
-package com.taotaoapi.user;
+package com.taotaoapi.home.user;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,16 +10,23 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
 
     private Integer id;
     private String firstname;
     private String lastname;
-    private String username;
+    private String nickname;
+
     private String email;
+    private String username;
     private String password;
+
     private String phone;
     private String role;
+    private String intro;
+    private String imageUrl;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -29,11 +38,6 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return email;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
     }
 
     @Override
