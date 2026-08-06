@@ -64,13 +64,10 @@ services:
       # 容器內用服務名稱當主機名，不能寫 localhost
       DB_HOST: mysql
       REDIS_HOST: redis
-    volumes:
-      - ./application.yml:/app/application.yml:ro
     command:
       - java
       - -jar
       - /app/app.jar
-      - --spring.config.location=/app/application.yml
     ports:
       # 只綁 loopback，外部打不到，一律經 Nginx 轉發
       - "127.0.0.1:8080:8080"
