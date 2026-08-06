@@ -36,3 +36,13 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Environment ###
+.env
+.env.local
+.env.*.local
+
+### 本機打包產物（改用 Dockerfile build 後不再需要進版控）###
+app.jar
+*.jar
+!.mvn/wrapper/maven-wrapper.jar

@@ -3,7 +3,7 @@ spring:
     name: management
   data:
       redis:
-        host: 192.168.100.128
+        host: 192.168.0.150
         port: 6379
         password: 123
         lettuce:
