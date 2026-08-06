@@ -47,7 +47,7 @@ services:
 
   management:
     build:
-      context: ./TaoTaoApi
+      context: .
       dockerfile: Dockerfile
     image: taotao-management:latest
     container_name: taotao-api
