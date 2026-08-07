@@ -12,7 +12,7 @@ services:
     ports:
       # 只綁 loopback (127.0.0.1)，代表只有「這台主機本機」能連進 3306，
       # 外部網路完全連不到，只有同機器上的 management 容器（走內部網路）能存取。
-      - "127.0.0.1:3306:3306"
+      - "100.107.61.99:3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
       # 這裡的 .sql 只在資料目錄「全新是空的」時才會執行一次
@@ -37,7 +37,7 @@ services:
     command: redis-server --requirepass ${REDIS_PASSWORD}   # 強制要求密碼，避免匿名連線
     ports:
       # 同樣只綁 loopback，外部連不到
-      - "127.0.0.1:6379:6379"
+      - "100.107.61.99:6379:6379"
     volumes:
       - redis-data:/data               # 持久化，容器重建資料不會消失
     networks:
